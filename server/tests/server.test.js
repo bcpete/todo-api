@@ -102,6 +102,7 @@ describe('GET /todos/:id', () => {
       .end(done);
   });
 });
+
 describe('DELETE /todos/id', () => {
   it('Should remove a todo', (done) => {
     var hexId = todos[0]._id.toHexString();
@@ -137,4 +138,39 @@ describe('DELETE /todos/id', () => {
       .end(done);
   });
 
+});
+
+describe('PATCH /todos/id', () => {
+  it('Should update a todo', (done) => {
+    var hexId = todos[1]._id.toHexString();
+    var body  = {
+      text: 'Testing',
+      completed: true
+    }
+    request(app)
+      .patch(`/todos/${hexId}`)
+      .send(body)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo._id).toBe(hexId);
+        expect(res.body.todo.text).toBe(body.text);
+        expect(res.body.todo.completed).toBe(true);
+      })
+      .end(done)
+  });
+
+  it('Should return a 404 if todo not found', (done) => {
+    request(app)
+      .patch(`/todos/${ObjectID()}`)
+      .expect(404)
+      .end(done);
+  });
+
+  it('Should return a 404 if invalid ovject id', (done) => {
+    request(app)
+      .patch('/todos/123')
+      .expect(404)
+      .end(done);
+  });
+  
 });
