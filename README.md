@@ -21,5 +21,5 @@
 <p><h4>DELETE /users/me/token</h4>Log out route, removes token from user and un-authenticates them.</p>
 
 <h3>==========Testing==========</h3>
-<p> Run node test, and it will run the testing suite, run node test-watch and it will run the suite and reload on file change if you have nodemon installed.</p>
+<p> Run node test, and it will run the testing suite, run node test-watch and it will run the suite and reload on file change if you have nodemon installed. I have unit tests for each route, to make sure everything behaves as it should. You can see them in /server/tests.</p>
 
